@@ -1,0 +1,6 @@
+add_subdirectory(config)
+add_subdirectory(format)
+add_subdirectory(log)
+add_subdirectory(mem)
+add_subdirectory(common)
+add_subdirectory(math)
