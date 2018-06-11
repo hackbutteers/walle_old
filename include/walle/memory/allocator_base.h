@@ -5,6 +5,7 @@
 #include <walle/memory/malloc_tracker.h>
 #include <cstddef>
 #include <memory>
+#include <new>
 #include <deque>
 #include <type_traits>
 

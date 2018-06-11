@@ -36,8 +36,8 @@ private:
 
 };
 
-WALLE_FORCE_INLINE Manager::Manager(const ManagerPtr &super, const std::string &name)
-    :_super(super),
+WALLE_FORCE_INLINE Manager::Manager(const ManagerPtr &supermanager, const std::string &name)
+    :_super(supermanager),
      _name(name)
 {
 
