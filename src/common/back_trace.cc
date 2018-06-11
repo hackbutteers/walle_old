@@ -132,7 +132,7 @@ void print_cxx_backtrace(std::string &result, unsigned int max_frames)
             }
         } else {
             // couldn't parse the line? print the whole line.
-            fprintf(out, "  %s\n", symbollist[i]);
+            //fprintf(out, "  %s\n", symbollist[i]);
             result += symbollist[i];
             result += "\n";
         }
