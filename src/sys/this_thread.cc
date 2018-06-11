@@ -57,7 +57,11 @@ std::string get_thread_name(pthread_t thread)
     void cache_main()
 	{
 	  if (t_is_main == -1) {
+#if WALLE_PLATEFORM == WALLE_PLATEFORM_LINUX
+		t_is_main = static_cast<size_t>(syscall(SYS_getpid)) == tid() ? 1 : 0;
+#elif WALLE_PLATEFORM == WALLE_PLATEFORM_OSX
 	    	t_is_main = pthread_main_np();
+#endif
 	  }
 	}
 	bool is_main_thread()
