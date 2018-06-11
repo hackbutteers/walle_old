@@ -10,6 +10,8 @@
 #include <assert.h>
 #include <pthread.h>
 #include <string>
+#include <atomic>
+
 
 namespace walle {
 

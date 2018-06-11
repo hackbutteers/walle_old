@@ -283,7 +283,7 @@ int Thread::get_affinity() const
 	if (pthread_getaffinity_np(_threadData->thread, sizeof(cpuset), &cpuset) != 0) {
 		return false;
 	}
-	int cpuCount = Environment::processorCount();
+	int cpuCount = Environment::processor_count();
 	for (int i = 0; i < cpuCount; i++) {
 		if (CPU_ISSET(i, &cpuset)) {
 			cpuSet = i;
