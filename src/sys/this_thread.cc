@@ -31,7 +31,7 @@ void set_thread_name(pthread_t thread, const std::string &threadName)
 std::string get_thread_name(pthread_t thread)
 {
 #if WALLE_PLATEFORM == WALLE_PLATEFORM_LINUX
-    static const kMaxThreadNameLen = 128;
+    static const int kMaxThreadNameLen = 128;
     char buffer[kMaxThreadNameLen]={};
     pthread_getname_np(thread, buffer, kMaxThreadNameLen - 1);
     return std::string(buffer);
