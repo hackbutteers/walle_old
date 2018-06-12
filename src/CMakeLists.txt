@@ -22,7 +22,7 @@ set(WALLE_SRC
 
 add_library(walleStatic STATIC ${WALLE_SRC} )
 #add_library(walleShared SHARED ${WALLE_SRC} )
-target_link_libraries(walleStatic pthread )
+target_link_libraries(walleStatic pthread dl)
 #target_link_libraries(walleShared pthread )
 set_target_properties(walleStatic PROPERTIES OUTPUT_NAME 
         walle_static)
