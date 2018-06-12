@@ -4,16 +4,17 @@ LABEL Description="This image is the base os dev image."  Version="1.0"
 # reconfig timezone
 RUN mkdir /root/walle
 
-COPY cmake  /root/walle
-COPY include  /root/walle
-COPY package  /root/walle
-COPY src  /root/walle
-COPY test  /root/walle
+COPY cmake  /root/walle/cmake
+COPY include  /root/walle/include
+COPY package  /root/walle/package
+COPY src  /root/walle/src
+COPY test  /root/walle/test
 COPY LICENSE  /root/walle
 COPY README.md  /root/walle
+COPY CMakeLists.txt  /root/walle
 
 WORKDIR /root/walle
 RUN mkdir build
-RUN cd build
+WORKDIR /root/walle/build
 RUN cmake ../
 RUN make
