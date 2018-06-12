@@ -131,6 +131,7 @@ public:
         }
 
         Type* r = static_cast<Type*>(bypass_malloc(size));
+        /*
         while (r == nullptr) {
             // If malloc fails and there is a std::new_handler, call it to try
             // free up memory.
@@ -140,6 +141,7 @@ public:
             nh();
             r = static_cast<Type*>(bypass_malloc(size));
         }
+        */
         return r;
     }
 
