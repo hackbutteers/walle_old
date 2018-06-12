@@ -134,7 +134,7 @@ public:
         while (r == nullptr) {
             // If malloc fails and there is a std::new_handler, call it to try
             // free up memory.
-            new_handler nh = get_new_handler();
+            std::new_handler nh = std::get_new_handler();
             if (!nh)
                 throw std::bad_alloc();
             nh();
