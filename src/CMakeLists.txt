@@ -1,6 +1,7 @@
 
 
 FILE(GLOB FORMAT_SRC "format/*.cc")
+FILE(GLOB FORMAT_DETAIL_SRC "format/detail/*.cc")
 FILE(GLOB STRINGS_SRC "strings/*.cc")
 FILE(GLOB TIME_SRC "time/*.cc")
 FILE(GLOB SYS_SRC "sys/*.cc")
@@ -8,6 +9,7 @@ FILE(GLOB COMMON_SRC "common/*.cc")
 FILE(GLOB LOG_SRC "log/*.cc")
 FILE(GLOB MEMORY_SRC "memory/*.cc")
 FILE(GLOB MATH_SRC "math/*.cc")
+FILE(GLOB WSL_SRC "wsl/*.cc")
 
 set(WALLE_SRC 
     ${FORMAT_SRC}
@@ -18,6 +20,8 @@ set(WALLE_SRC
     ${LOG_SRC}
     ${MEMORY_SRC}
     ${MATH_SRC}
+    ${FORMAT_DETAIL_SRC}
+    ${WSL_SRC}
     )
 
 add_library(walleStatic STATIC ${WALLE_SRC} )

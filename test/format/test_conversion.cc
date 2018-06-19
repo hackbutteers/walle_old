@@ -425,8 +425,8 @@ TEST(Conversion, Doubleto_fixed)
     CHECK(dc.to_fixed(-0.0, 1, &builder));
     CHECK_EQ("0.0", builder.finalize());
 
-    WALLE_ASSERT(DoubleToStringConverter::kMaxFixedDigitsBeforePoint == 60, "");
-    WALLE_ASSERT(DoubleToStringConverter::kMaxFixedDigitsAfterPoint == 60, "");
+    WALLE_ASSERT_MSG(DoubleToStringConverter::kMaxFixedDigitsBeforePoint == 60, "");
+    WALLE_ASSERT_MSG(DoubleToStringConverter::kMaxFixedDigitsAfterPoint == 60, "");
     builder.reset();
     CHECK(dc.to_fixed(
         0.0, DoubleToStringConverter::kMaxFixedDigitsAfterPoint, &builder));
@@ -711,7 +711,7 @@ TEST(Conversion, DoubleToExponential) {
     CHECK(dc.to_exponential(-0.0, 2, &builder));
     CHECK_EQ("0.00e+0", builder.finalize());
 
-    WALLE_ASSERT(DoubleToStringConverter::kMaxExponentialDigits == 120, "");
+    WALLE_ASSERT_MSG(DoubleToStringConverter::kMaxExponentialDigits == 120, "");
     builder.reset();
     CHECK(dc.to_exponential(
         0.0, DoubleToStringConverter::kMaxExponentialDigits, &builder));
@@ -839,7 +839,7 @@ TEST(Conversion, DoubleToPrecision)
                                 0, 0,   // Padding zeroes for shortest mode.
                                 6, 0);  // Padding zeroes for precision mode.
 
-    WALLE_ASSERT(DoubleToStringConverter::kMinPrecisionDigits == 1, "");
+    WALLE_ASSERT_MSG(DoubleToStringConverter::kMinPrecisionDigits == 1, "");
     CHECK(dc.to_precision(0.0, 1, &builder));
     CHECK_EQ("0", builder.finalize());
 
@@ -855,7 +855,7 @@ TEST(Conversion, DoubleToPrecision)
     CHECK(dc.to_precision(-0.0, 2, &builder));
     CHECK_EQ("0.0", builder.finalize());
 
-    WALLE_ASSERT(DoubleToStringConverter::kMaxPrecisionDigits == 120, "");
+    WALLE_ASSERT_MSG(DoubleToStringConverter::kMaxPrecisionDigits == 120, "");
     builder.reset();
     CHECK(dc.to_precision(
         0.0, DoubleToStringConverter::kMaxPrecisionDigits, &builder));
@@ -1820,7 +1820,7 @@ static double str_to_d(const char* str, int flags, double empty_string_value,
         ((strlen(str) == static_cast<unsigned>(*processed_characters_count)));
 
     uint16_t buffer16[256];
-    WALLE_ASSERT(strlen(str) < WALLE_ARRAY_SIZE(buffer16), "");
+    WALLE_ASSERT_MSG(strlen(str) < WALLE_ARRAY_SIZE(buffer16), "");
     int len = strlen(str);
     for (int i = 0; i < len; i++) {
         buffer16[i] = str[i];
@@ -3344,7 +3344,7 @@ static double StrToF(const char* str, int flags, double empty_string_value,
       ((strlen(str) == static_cast<unsigned>(*processed_characters_count)));
 
   uint16_t buffer16[256];
-  WALLE_ASSERT(strlen(str) < WALLE_ARRAY_SIZE(buffer16), "");
+  WALLE_ASSERT_MSG(strlen(str) < WALLE_ARRAY_SIZE(buffer16), "");
   int len = strlen(str);
   for (int i = 0; i < len; i++) {
     buffer16[i] = str[i];

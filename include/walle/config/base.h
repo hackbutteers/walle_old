@@ -62,12 +62,16 @@
     #define WALLE_EXBI_BYTE(x) size_t(x) * 1024 * 1024 * 1024 * 1024 * 1024
 #endif
 
+#ifndef WALLE_ASSERT_MSG
+    #define WALLE_ASSERT_MSG(e, m) assert((e)&&(m))
+#endif
+
 #ifndef WALLE_ASSERT
-    #define WALLE_ASSERT(e, m) assert((e)&&(m))
+    #define WALLE_ASSERT(e) assert((e))
 #endif
 
 #ifndef WALLE_THROW
-    #define WALLE_THROW(x) WALLE_ASSERT(false, "not  throw")
+    #define WALLE_THROW(x) WALLE_ASSERT_MSG(false, "not  throw")
 #endif
 
 #ifndef WALLE_ABORT
@@ -91,6 +95,64 @@
 
 #ifndef WALLE_OVERRIDE
     #define WALLE_OVERRIDE override
+#endif
+
+#ifndef WALLE_CONSTEXPR
+    #define WALLE_CONSTEXPR constexpr
+#endif
+
+#ifndef WALLE_CPP14_CONSTEXPR
+	#if WALLE_COMPILER_CPP14_ENABLED
+		#define WALLE_CPP14_CONSTEXPR constexpr
+	#else
+		#define WALLE_CPP14_CONSTEXPR
+	#endif
+#endif
+
+#ifndef WALLE_CHAR16_NATIVE
+	#if defined(WALLE_COMPILER_CLANG)
+		#define WALLE_CHAR16_NATIVE 1
+		#define WALLE_CHAR32_NATIVE 1
+	#elif defined(WALLE_COMPILER_GNUC)
+		#define WALLE_CHAR16_NATIVE 1
+		#define WALLE_CHAR32_NATIVE 1
+	#else
+		#define WALLE_CHAR16_NATIVE 0
+		#define WALLE_CHAR32_NATIVE 0
+	#endif
+#endif
+
+#if WALLE_CHAR16_NATIVE || WALLE_CHAR32_NATIVE
+	#define WALLE_WCHAR_UNIQUE 1
+#else
+	#define WALLE_WCHAR_UNIQUE 0
+#endif
+
+
+#ifndef CHAR8_T_DEFINED
+	#define CHAR8_T_DEFINED
+	#if WALLE_PLATEFORM == WALLE_PLATEFORM_OSX
+		#define char8_t char  
+	#else
+		typedef char char8_t;
+	#endif
+	
+	#if WALLE_CHAR16_NATIVE
+		#if defined(__GNUC__) && !defined(__GXX_EXPERIMENTAL_CXX0X__) && defined(__CHAR16_TYPE__) // If using GCC and compiling in C...
+			typedef __CHAR16_TYPE__ char16_t;
+			typedef __CHAR32_TYPE__ char32_t;
+		#endif
+	#elif (WALLE_WCHAR_SIZE == 2)
+			typedef wchar_t  char16_t;
+			typedef uint32_t char32_t;
+	#else
+		typedef uint16_t char16_t;
+		#if defined(__cplusplus)
+			typedef wchar_t  char32_t;
+		#else
+			typedef uint32_t char32_t;
+		#endif
+	#endif
 #endif
 
 #endif

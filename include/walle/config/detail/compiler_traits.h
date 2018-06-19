@@ -271,7 +271,7 @@
 #endif
 
 #if !defined(WALLE_OPTIMIZE_OFF)
-	#if defined(WALLE_COMPILER_GNUC) && (EA_COMPILER_VERSION > 4004) && (defined(__i386__) || defined(__x86_64__)) // GCC 4.4+ - Seems to work only on x86/Linux so far. However, GCC 4.4 itself appears broken and screws up parameter passing conventions.
+	#if defined(WALLE_COMPILER_GNUC) && (WALLE_COMPILER_VERSION > 4004) && (defined(__i386__) || defined(__x86_64__)) // GCC 4.4+ - Seems to work only on x86/Linux so far. However, GCC 4.4 itself appears broken and screws up parameter passing conventions.
 	    #define WALLE_OPTIMIZE_OFF()            \
 		    _Pragma("GCC push_options")      \
 			_Pragma("GCC optimize 0")
@@ -287,7 +287,7 @@
 
 #if !defined(WALLE_OPTIMIZE_ON)
     #if defined(WALLE_COMPILER_GNUC) && (WALLE_COMPILER_VERSION > 4004) && (defined(__i386__) || defined(__x86_64__)) // GCC 4.4+ - Seems to work only on x86/Linux so far. However, GCC 4.4 itself appears broken and screws up parameter passing conventions.
-			#define EA_OPTIMIZE_ON() _Pragma("GCC pop_options")
+			#define WALLE_OPTIMIZE_ON() _Pragma("GCC pop_options")
     #elif defined(WALLE_COMPILER_CLANG)
         #define WALLE_OPTIMIZE_ON() \
 		    WALLE_DISABLE_CLANG_WARNING(-Wunknown-pragmas) \
@@ -345,4 +345,30 @@
 #ifndef WALLE_NO_SANITIZE
     #define WALLE_NO_SANITIZE WALLE_NO_SANITIZE_ADDRESS WALLE_NO_SANITIZE_THREAD
 #endif
+
+#ifdef __has_builtin
+    #define WALLE_HAS_BUILTIN(x) __has_builtin(x)
+#else
+    #define WALLE_HAS_BUILTIN(x) 0
+#endif
+
+
+#ifndef WALLE_WCHAR_SIZE // If the user hasn't specified that it is a given size...
+    #if defined(__WCHAR_MAX__) // GCC defines this for most platforms.
+        #if (__WCHAR_MAX__ == 2147483647) || (__WCHAR_MAX__ == 4294967295)
+            #define WALLE_WCHAR_SIZE 4
+        #elif (__WCHAR_MAX__ == 32767) || (__WCHAR_MAX__ == 65535)
+            #define WALLE_WCHAR_SIZE 2
+        #elif (__WCHAR_MAX__ == 127) || (__WCHAR_MAX__ == 255)
+            #define WALLE_WCHAR_SIZE 1
+        #else
+            #define WALLE_WCHAR_SIZE 4
+        #endif
+    #elif WALLE_PLATEFORM == WALLE_PLATFORM_LINUX || WALLE_PLATEFORM == WALLE_PLATFORM_OSX
+        #define WALLE_WCHAR_SIZE 4
+    #else
+        #define WALLE_WCHAR_SIZE 2
+    #endif
+#endif
+
 #endif //WALLE_CONFIG_DETAIL_COMPILER_TRAITS_H_
