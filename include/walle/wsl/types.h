@@ -20,5 +20,10 @@ inline Dest bit_cast(Source* source)
     return bit_cast<Dest>(reinterpret_cast<uintptr_t>(source));
 }
 
+template <typename To>
+inline To implicit_cast(typename wsl::identity<To>::value to) 
+{
+  return to;
+}
 }
 #endif //WALLE_WSL_TYPES_H_
